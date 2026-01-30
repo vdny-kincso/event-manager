@@ -77,6 +77,21 @@
             <h2><?php echo $event['title']; ?></h2>
             <p><?php echo $event['description']; ?></p>
             <small>Date: <?php echo $event['start_date']; ?></small>
+
+            <?php if (isset($_SESSION['user_id']) && 
+                isset($event['organizer_id']) && 
+                $_SESSION['user_id'] == $event['organizer_id']): 
+            ?>
+                <br>
+                <a href="index.php?page=edit_event&id=<?php echo $event['id']; ?>"
+                   style="color: orange; text-decoration: none; font-weight: bold; margin-right: 10px;">
+                   Edit
+                </a>
+                <a href="index.php?page=delete_event&id=<?php echo $event['id']; ?>"
+                    style="color: red; text-decoration:none;font-weight:bold;">
+                    Delete</a>
+                <?php endif; ?>
+
         </div>
     <?php endforeach; ?>
     <?php if (empty($events)): ?>

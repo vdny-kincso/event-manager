@@ -31,6 +31,16 @@ class Router{
                 $userPresenter = new userPresenter();
                 $userPresenter->logout();
                 break;
+            case 'delete_event':
+                require_once '../app/presenter/eventPresenter.php';
+                $eventPresenter = new eventPresenter();
+                $eventPresenter->delete();
+                break;
+            case 'edit_event':
+                require_once '../app/presenter/eventPresenter.php';
+                $eventPresenter = new eventPresenter();
+                $eventPresenter->edit();
+                break;
             default:
                 echo "<h1>404 - Page not found :( </h1>";
                 break;
