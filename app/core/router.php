@@ -21,6 +21,16 @@ class Router{
             case 'events':
                 echo "<h1>Events here...</h1>";
                 break;
+            case 'register_event':
+                require_once '../app/presenter/eventPresenter.php';
+                $eventPresenter = new eventPresenter();
+                $eventPresenter->register();
+                break;
+            case 'unregister_event':
+                require_once '../app/presenter/eventPresenter.php';
+                $eventPresenter = new EventPresenter();
+                $eventPresenter->unregister(); 
+                break;
             case 'login':
                 require_once '../app/presenter/userPresenter.php';
                 $userPresenter = new userPresenter();
@@ -40,6 +50,11 @@ class Router{
                 require_once '../app/presenter/eventPresenter.php';
                 $eventPresenter = new eventPresenter();
                 $eventPresenter->edit();
+                break;
+            case 'event_detail':
+                require_once '../app/presenter/EventPresenter.php';
+                $pincer = new EventPresenter();
+                $pincer->detail();
                 break;
             default:
                 echo "<h1>404 - Page not found :( </h1>";

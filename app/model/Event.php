@@ -59,4 +59,30 @@ class Event {
 
         return $stmt->execute([$title, $desc, $start, $end, $id]);
     }
+
+    public function registerUser($userId, $eventId) {
+        $db = new DB();
+        $conn = $db->connect();
+        $sql = "INSERT IGNORE INTO registrations (user_id, event_id) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([$userId, $eventId]);
+    }
+
+    public function cancelRegistration($userId, $eventId) {
+        $db = new DB();
+        $conn = $db->connect();
+        $sql = "DELETE FROM registrations WHERE user_id = ? AND event_id = ?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([$userId, $eventId]);
+    }
+
+    public function isRegistered($userId, $eventId) {
+        $db = new DB();
+        $conn = $db->connect();
+        $sql = "SELECT * FROM registrations WHERE user_id = ? AND event_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$userId, $eventId]);
+        
+        return $stmt->fetch() ? true : false;
+    }
 }

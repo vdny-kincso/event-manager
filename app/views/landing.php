@@ -74,8 +74,13 @@
 
     <?php foreach ($events as $event): ?>
         <div class="event-box">
-            <h2><?php echo $event['title']; ?></h2>
-            <p><?php echo $event['description']; ?></p>
+            <h2>
+                <a href="index.php?page=event_detail&id=<?php echo $event['id']; ?>" 
+                style="text-decoration: none; color: #333;">
+                <?php echo htmlspecialchars($event['title']); ?>
+                </a>
+            </h2>
+            <!-- <p><?php echo $event['description']; ?></p> -->
             <small>Date: <?php echo $event['start_date']; ?></small>
 
             <?php if (isset($_SESSION['user_id']) && 

@@ -74,4 +74,50 @@ class eventPresenter{
             exit;
         }
     }
+
+    public function detail() {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            
+            $eventModel = new Event();
+            $event = $eventModel->getEventById($id);
+
+            if (!$event) {
+                header('Location: index.php');
+                exit;
+            }
+
+            $isRegistered = false; 
+            
+            if (isset($_SESSION['user_id'])) {
+                $isRegistered = $eventModel->isRegistered($_SESSION['user_id'], $id);
+            }
+
+            require_once __DIR__ . '/../views/event_detail.php';
+            
+        } else {
+            header('Location: index.php');
+            exit;
+        }
+    }
+    
+    public function register(){
+        if (isset($_SESSION['user_id']) && isset($_GET['id'])) {
+            $model = new Event();
+            $model->registerUser($_SESSION['user_id'], $_GET['id']);
+        }
+        header('Location: index.php?page=event_detail&id=' . $_GET['id']);
+        exit;
+    }
+
+    public function unregister() {
+        if (isset($_SESSION['user_id']) && isset($_GET['id'])) {
+            
+            $model = new Event();
+            $model->cancelRegistration($_SESSION['user_id'], $_GET['id']);
+        }
+        
+        header('Location: index.php?page=event_detail&id=' . $_GET['id']);
+        exit;
+    }
 }
