@@ -31,9 +31,53 @@
         <p><?php echo nl2br(htmlspecialchars($event['description'])); ?></p>
     </div>
 
+    <?php if (!empty($event['hero_image'])): ?>
+        <div style="margin-bottom: 20px;">
+            <img src="uploads/<?php echo htmlspecialchars($event['hero_image']); ?>" 
+                alt="Event Image" 
+                style="max-width: 100%; height: auto; border-radius: 8px;">
+        </div>
+    <?php endif; ?>
+
     <hr>
     <h3>Workshops:</h3>
-    <p><i>Workshops coming soon...</i></p>
+    
+    <?php if (!empty($workshops)): ?>
+        <ul style="list-style: none; padding: 0;">
+            <?php foreach ($workshops as $workshop): ?>
+                <li style="background: #f9f9f9; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                    
+                    <strong style="font-size: 1.1em;">
+                        <?php echo htmlspecialchars($workshop['title']); ?>
+                    </strong>
+                    <br>
+                    
+                    <span style="color: #666; font-size: 0.9em;">
+                        <?php echo htmlspecialchars($workshop['start_time']); ?> 
+                        - 
+                        <?php echo htmlspecialchars($workshop['end_time']); ?>
+                    </span>
+
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
+    <?php else: ?>
+        <p><i>No workshops yet.</i></p>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['user_id']) && 
+              isset($event['organizer_id']) && 
+              $_SESSION['user_id'] == $event['organizer_id']): ?>
+        
+        <div style="margin-top: 10px;">
+            <a href="index.php?page=add_workshop&event_id=<?php echo $event['id']; ?>" 
+               style="background: #145d1e; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px;">
+               + Add Workshop
+            </a>
+        </div>
+
+    <?php endif; ?>
 
     <?php if (isset($_SESSION['user_id']) && 
               isset($event['organizer_id']) && 

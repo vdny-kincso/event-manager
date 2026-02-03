@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__ . '/../model/Event.php';
+require_once __DIR__ . '/workshopPresenter.php';
 
 class eventPresenter{
 
     public function create(){
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+
             $title = $_POST['title'];
             $desc = $_POST['description'];
             $start = $_POST['start_date'];
@@ -14,8 +16,39 @@ class eventPresenter{
 
             $currentUserId = $_SESSION['user_id'];
 
+            $imagePath = null;
+            if (isset($_FILES['hero_image']) && $_FILES['hero_image']['error']===0){
+                $fileName = time() . '_' . basename($_FILES['hero_image']['name']);
+                $targetFile = __DIR__.'/../../public/uploads/'.$fileName;
+
+                if (move_uploaded_file($_FILES['hero_image']['tmp_name'], $targetFile)){
+                    $imagePath = $fileName;
+                }
+            }
+
             $eventModel = new Event();
-            $eventModel->createEvent($title, $desc, $start, $end, $currentUserId);
+            // Ez a függvény VISSZA KELL ADJA az ID-t (lastInsertId)
+            $eventId = $eventModel->createEvent($title, $desc, $start, $end, $imagePath, $currentUserId);
+
+            // 3. WORKSHOPOK MENTÉSE
+            if (isset($_POST['workshops']) && is_array($_POST['workshops'])) {
+                
+                require_once __DIR__ . '/../model/Workshop.php';
+                $workshopModel = new Workshop();
+
+                foreach ($_POST['workshops'] as $wData) {
+                    // $wData['title'], $wData['start_time'], $wData['end_time']
+                    
+                    if (!empty($wData['title'])) {
+                        $workshopModel->createWorkshop(
+                            $eventId,
+                            $wData['title'],
+                            $wData['start_time'], 
+                            $wData['end_time']
+                        );
+                    }
+                }
+            }
 
             header('Location: index.php');
             exit;
@@ -78,26 +111,22 @@ class eventPresenter{
     public function detail() {
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            
             $eventModel = new Event();
             $event = $eventModel->getEventById($id);
 
-            if (!$event) {
-                header('Location: index.php');
-                exit;
-            }
+            if (!$event) { header('Location: index.php'); exit; }
 
-            $isRegistered = false; 
-            
+            // Workshopok lekérése
+            require_once __DIR__ . '/../model/Workshop.php';
+            $workshopModel = new Workshop();
+            $workshops = $workshopModel->getAllWorkshopsById($id);
+
+            $isRegistered = false;
             if (isset($_SESSION['user_id'])) {
                 $isRegistered = $eventModel->isRegistered($_SESSION['user_id'], $id);
             }
 
             require_once __DIR__ . '/../views/event_detail.php';
-            
-        } else {
-            header('Location: index.php');
-            exit;
         }
     }
     
@@ -116,7 +145,7 @@ class eventPresenter{
             $model = new Event();
             $model->cancelRegistration($_SESSION['user_id'], $_GET['id']);
         }
-        
+
         header('Location: index.php?page=event_detail&id=' . $_GET['id']);
         exit;
     }

@@ -31,6 +31,11 @@ class Router{
                 $eventPresenter = new EventPresenter();
                 $eventPresenter->unregister(); 
                 break;
+            case 'register':
+                require_once '../app/presenter/userPresenter.php';
+                $userPresenter = new userPresenter();
+                $userPresenter->register();
+                break;
             case 'login':
                 require_once '../app/presenter/userPresenter.php';
                 $userPresenter = new userPresenter();
@@ -53,8 +58,13 @@ class Router{
                 break;
             case 'event_detail':
                 require_once '../app/presenter/EventPresenter.php';
-                $pincer = new EventPresenter();
-                $pincer->detail();
+                $eventPresenter = new EventPresenter();
+                $eventPresenter->detail();
+                break;
+            case 'add_workshop':
+                require_once '../app/presenter/WorkshopPresenter.php';
+                $workshopPresenter = new workshopPresenter();
+                $workshopPresenter->add();
                 break;
             default:
                 echo "<h1>404 - Page not found :( </h1>";
