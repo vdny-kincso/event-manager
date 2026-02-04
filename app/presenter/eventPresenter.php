@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . '/../model/Event.php';
-require_once __DIR__ . '/workshopPresenter.php';
+require_once __DIR__ . '/WorkshopPresenter.php';
 
-class eventPresenter {
+class EventPresenter {
 
     public function create(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){

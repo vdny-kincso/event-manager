@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../model/Workshop.php';
 
-class workshopPresenter {
+class WorkshopPresenter {
 
     public function add(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){

@@ -17,10 +17,13 @@ CREATE TABLE IF NOT EXISTS events (
     FOREIGN KEY (organizer_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE IF NOT EXISTS workshops (
     id INT AUTO_INCREMENT PRIMARY KEY,
     event_id INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
@@ -35,9 +38,11 @@ CREATE TABLE IF NOT EXISTS registrations (
 );
 
 CREATE TABLE IF NOT EXISTS workshop_registrations (
-    registration_id INT NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
     workshop_id INT NOT NULL,
-    FOREIGN KEY (registration_id) REFERENCES registrations(id) ON DELETE CASCADE,
-    FOREIGN KEY (workshop_id) REFERENCES workshops(id) ON DELETE CASCADE,
-    PRIMARY KEY (registration_id, workshop_id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, workshop_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (workshop_id) REFERENCES workshops(id) ON DELETE CASCADE
 );

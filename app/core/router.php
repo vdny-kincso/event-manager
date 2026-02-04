@@ -14,22 +14,22 @@ class Router{
                 $presenterLanding->render();
                 break;
             case 'create_event':
-                require_once '../app/presenter/eventPresenter.php';
-                $eventPresenter = new eventPresenter();
-                $eventPresenter->create();
+                require_once '../app/presenter/EventPresenter.php';
+                $EventPresenter = new EventPresenter();
+                $EventPresenter->create();
                 break;
             case 'register_event':
-                require_once '../app/presenter/eventPresenter.php';
-                $eventPresenter = new eventPresenter();
-                $eventPresenter->register();
+                require_once '../app/presenter/EventPresenter.php';
+                $EventPresenter = new EventPresenter();
+                $EventPresenter->register();
                 break;
             case 'unregister_event':
-                require_once '../app/presenter/eventPresenter.php';
-                $eventPresenter = new EventPresenter();
-                $eventPresenter->unregister(); 
+                require_once '../app/presenter/EventPresenter.php';
+                $EventPresenter = new EventPresenter();
+                $EventPresenter->unregister(); 
                 break;
             case 'register':
-                require_once '../app/presenter/userPresenter.php';
+                require_once '../app/presenter/UserPresenter.php';
                 $userPresenter = new userPresenter();
                 $userPresenter->register();
                 break;
@@ -44,19 +44,19 @@ class Router{
                 $userPresenter->logout();
                 break;
             case 'delete_event':
-                require_once '../app/presenter/eventPresenter.php';
-                $eventPresenter = new eventPresenter();
-                $eventPresenter->delete();
+                require_once '../app/presenter/EventPresenter.php';
+                $EventPresenter = new EventPresenter();
+                $EventPresenter->delete();
                 break;
             case 'edit_event':
-                require_once '../app/presenter/eventPresenter.php';
-                $eventPresenter = new eventPresenter();
-                $eventPresenter->edit();
+                require_once '../app/presenter/EventPresenter.php';
+                $EventPresenter = new EventPresenter();
+                $EventPresenter->edit();
                 break;
             case 'event_detail':
                 require_once '../app/presenter/EventPresenter.php';
-                $eventPresenter = new EventPresenter();
-                $eventPresenter->detail();
+                $EventPresenter = new EventPresenter();
+                $EventPresenter->detail();
                 break;
             case 'add_workshop':
                 require_once '../app/presenter/WorkshopPresenter.php';
@@ -64,18 +64,18 @@ class Router{
                 $workshopPresenter->add();
                 break;
             case 'register_workshop':
-                require_once __DIR__ . '/../presenter/eventPresenter.php';
-                $presenter = new eventPresenter();
+                require_once __DIR__ . '/../presenter/EventPresenter.php';
+                $presenter = new EventPresenter();
                 $presenter->register_workshop();
                 break;
             case 'unregister_workshop':
-                require_once __DIR__ . '/../presenter/eventPresenter.php';
-                $presenter = new eventPresenter();
+                require_once __DIR__ . '/../presenter/EventPresenter.php';
+                $presenter = new EventPresenter();
                 $presenter->unregister_workshop();
                 break;
             case 'event_register_page':
-                require_once __DIR__ . '/../presenter/eventPresenter.php';
-                $presenter = new eventPresenter();
+                require_once __DIR__ . '/../presenter/EventPresenter.php';
+                $presenter = new EventPresenter();
                 $presenter->register_page(); 
                 break;
             default:

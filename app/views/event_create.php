@@ -63,31 +63,30 @@
             <input type="text" name="workshops[INDEX][title]" required>
 
             <label>Start Date:</label>
-            <input type="date" name="workshops[INDEX][start_time]" required>
+            <input type="time" name="workshops[INDEX][start_time]" required>
 
             <label>End Date:</label>
-            <input type="date" name="workshops[INDEX][end_time]" required>
+            <input type="time" name="workshops[INDEX][end_time]" required>
         </div>
     </div>
 
     <script>
         function addWorkshop() {
-            // 1. Megnézzük, hányadik sornál tartunk (hogy tudjuk a sorszámot: 0, 1, 2...)
+            //gettin the workshop list from the code as list and the number of elements-1
             var list = document.getElementById('workshop-list');
             var index = list.children.length;
 
-            // 2. Kivesszük a sablon tartalmát
+            //this is the ws template we are going to copy paste again
             var template = document.getElementById('workshop-template').innerHTML;
 
-            // 3. Kicseréljük az 'INDEX' szót a számra (pl. workshops[0][title])
-            // A /INDEX/g azt jelenti: mindenhol cserélje, ne csak az elsőnél
+            //change the word INDEX to an actual index
             var newHtml = template.replace(/INDEX/g, index);
 
-            // 4. Beszúrjuk a listába
+            //add the new html to the list
             list.insertAdjacentHTML('beforeend', newHtml);
         }
 
-        // Indításkor rakjon ki egyet automatikusan
+        //one from the start
         addWorkshop();
     </script>
 

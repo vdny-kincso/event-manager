@@ -28,7 +28,7 @@
 
     <?php if (!empty($event['hero_image'])): ?>
         <p>
-            <img src="uploads/<?php echo htmlspecialchars($event['hero_image']); ?>" alt="Event Image" style="max-width: 400px;">
+            <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($event['hero_image']); ?>" alt="Event Image" style="max-width: 400px;">
         </p>
     <?php endif; ?>
 
