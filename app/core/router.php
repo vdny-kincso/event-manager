@@ -18,9 +18,6 @@ class Router{
                 $eventPresenter = new eventPresenter();
                 $eventPresenter->create();
                 break;
-            case 'events':
-                echo "<h1>Events here...</h1>";
-                break;
             case 'register_event':
                 require_once '../app/presenter/eventPresenter.php';
                 $eventPresenter = new eventPresenter();
@@ -65,6 +62,21 @@ class Router{
                 require_once '../app/presenter/WorkshopPresenter.php';
                 $workshopPresenter = new workshopPresenter();
                 $workshopPresenter->add();
+                break;
+            case 'register_workshop':
+                require_once __DIR__ . '/../presenter/eventPresenter.php';
+                $presenter = new eventPresenter();
+                $presenter->register_workshop();
+                break;
+            case 'unregister_workshop':
+                require_once __DIR__ . '/../presenter/eventPresenter.php';
+                $presenter = new eventPresenter();
+                $presenter->unregister_workshop();
+                break;
+            case 'event_register_page':
+                require_once __DIR__ . '/../presenter/eventPresenter.php';
+                $presenter = new eventPresenter();
+                $presenter->register_page(); 
                 break;
             default:
                 echo "<h1>404 - Page not found :( </h1>";

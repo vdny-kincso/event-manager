@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Workshop</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin-top: 50px; 
+            background-color: #f4f4f4; 
+        }
+    </style>
 </head>
 <body style="font-family: sans-serif; max-width: 600px; margin: 20px auto;">
 

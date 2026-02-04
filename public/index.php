@@ -12,20 +12,3 @@ require_once '../app/core/router.php';
 $router = new Router();
 $router->dispatch();
 
-// echo "<h1>Event Manager";
-
-$db_obj = new DB();
-
-$connection = $db_obj->connect();
-
-// echo "<p style='color: green;'> Successfull connection</p>";
-
-$sql = "SELECT * FROM users";
-
-$todo = $connection->query($sql);
-
-$users = $todo->fetchAll();
-
-// echo "<pre>";
-// print_r($users);
-// echo "</pre>";

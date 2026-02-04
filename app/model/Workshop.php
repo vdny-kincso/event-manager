@@ -33,4 +33,40 @@ class Workshop {
          $stmt = $conn->prepare($sql);
          return $stmt->execute([$id]);
     }
+
+    public function registerUser($userId, $workshopId) {
+        $db = new DB();
+        $conn = $db->connect();
+        $sql = "INSERT IGNORE INTO workshop_registrations (user_id, workshop_id) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([$userId, $workshopId]);
+    }
+
+    public function cancelRegistration($userId, $workshopId) {
+        $db = new DB();
+        $conn = $db->connect();
+        $sql = "DELETE FROM workshop_registrations WHERE user_id = ? AND workshop_id = ?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([$userId, $workshopId]);
+    }
+
+    public function isRegistered($userId, $workshopId) {
+        $db = new DB();
+        $conn = $db->connect();
+        $sql = "SELECT * FROM workshop_registrations WHERE user_id = ? AND workshop_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$userId, $workshopId]);
+        
+        return $stmt->fetch() ? true : false;
+    }
+
+    public function getEventIdByWorkshopId($workshopId) {
+        $db = new DB();
+        $conn = $db->connect();
+        $sql = "SELECT event_id FROM workshops WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$workshopId]);
+        $result = $stmt->fetch();
+        return $result ? $result['event_id'] : null;
+    }
 }
