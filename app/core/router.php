@@ -78,6 +78,11 @@ class Router{
                 $presenter = new EventPresenter();
                 $presenter->register_page(); 
                 break;
+            case 'calendar':
+                require_once '../app/presenter/EventPresenter.php';
+                $eventPresenter = new EventPresenter();
+                $eventPresenter->calendar();
+                break;
             default:
                 echo "<h1>404 - Page not found :( </h1>";
                 break;

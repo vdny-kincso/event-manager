@@ -87,4 +87,19 @@ class Event {
         
         return $stmt->fetch() ? true : false;
     }
+
+    public function getEventsByDateRange($startDate, $endDate) {
+        $db = new DB();
+        $conn = $db->connect();
+
+        $sql = "SELECT * FROM events WHERE start_date <= :end_date AND end_date >= :start_date 
+            ORDER BY start_date ASC";
+                
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            ':start_date' => $startDate,
+            ':end_date' => $endDate
+        ]);
+        return $stmt->fetchAll();
+    }
 }

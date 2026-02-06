@@ -191,4 +191,55 @@ class EventPresenter {
         header('Location: index.php?page=event_detail&id=' . $_GET['id']);
         exit;
     }
+
+    public function calendar(){
+        $eventModel = new Event();
+
+        $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
+        $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
+
+        $firstDayOfMonth = new DateTime("$year-$month-01");
+        $daysInMonth = $firstDayOfMonth->format('t');
+        $monthName = $firstDayOfMonth->format('F Y');
+        $dayOfWeekFirstDay = $firstDayOfMonth->format('N');
+
+        $lastDayOfMonth = new DateTime("$year-$month-$daysInMonth");
+
+        $prevDate = clone $firstDayOfMonth;
+        $prevDate->modify('-1 month');
+        $prevYear = $prevDate->format('Y');
+        $prevMonth = $prevDate->format('m');
+
+        $nextDate = clone $firstDayOfMonth;
+        $nextDate->modify('+1 month');
+        $nextYear = $nextDate->format('Y');
+        $nextMonth = $nextDate->format('m');
+
+        //events - all events that month
+        $startDateStr = $firstDayOfMonth->format('Y-m-d');
+        $endDateStr = $lastDayOfMonth->format('Y-m-d');
+        $events = $eventModel->getEventsByDateRange($startDateStr, $endDateStr);
+
+        $calendarData = [];
+        for ($day=1; $day<=$daysInMonth; $day++) {
+            $calendarData[$day] = []; 
+        }
+
+        foreach ($events as $event) {
+            $eventStart=new DateTime($event['start_date']);
+            $eventEnd=new DateTime($event['end_date']);
+
+            //going on all days in the month and see if the event is still going
+            for ($day=1; $day<=$daysInMonth; $day++) {
+                $currentDayStr= "$year-$month-" . str_pad($day, 2, '0', STR_PAD_LEFT);
+                $currentDayDate= new DateTime($currentDayStr);
+
+                if ($currentDayDate >= $eventStart && $currentDayDate <= $eventEnd) {
+                    $calendarData[$day][] = $event;
+                }
+            }
+        }
+
+        require_once __DIR__ . '/../views/calendar.php';
+    }
 }
