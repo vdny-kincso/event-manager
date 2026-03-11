@@ -21,11 +21,19 @@ This project is a semantic web application developed for the Web Applications co
 
 ### 1. Landing Page
 The main page displaying the list of active events with their cover images and details.
-![Landing Page](docs/landing_page.png)
+![Landing Page](docs/landing_page.png) ![Uploading image.png…]()<img width="1862" height="722" alt="landing_page2" src="https://github.com/user-attachments/assets/78bd0f3c-11b8-48c5-94fb-cae3516b5ea9" />
+
+
 
 ### 2. Registration & Detail Page
 The detailed view of an event where users can register and select workshops.
 ![Register Page](docs/register_page.png)
+<img width="1900" height="771" alt="registartion_page2" src="https://github.com/user-attachments/assets/697b6dad-5be4-4103-bde5-094b8a917030" />
+
+### 3. Calendar
+A calendar where the user can see all the events organized. 
+<img width="1835" height="952" alt="calendar" src="https://github.com/user-attachments/assets/c0dae8ad-d68c-43b6-90b1-ea95a62d7ffa" />
+
 
 ---
 
